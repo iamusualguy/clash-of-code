@@ -128,15 +128,15 @@ wss.on('connection', function connection(ws) {
     switch (message.type) {
       case "test": {
         const code = message.code;
-        res = testJSCode(code);
+        const res = testJSCode(code);
 
         const index = CLIENTS.map(e => e.id).indexOf(client.id);
 
         if (index > -1) {
           CLIENTS[index].tests = res;
           CLIENTS[index].passPercentage = (Math.round((res.filter(rr => rr[0] === "P").length / res.length) * 100));
-          if (CLIENTS[index].passPercentage === 100) {
-            LEADERS.push(CLIENTS[index]);
+          if (CLIENTS[index].passPercentage === 100 && LEADERS.some(ldld => ldld.id === CLIENTS[index].id)) {
+            LEADERS.push(CLIENTS[index].id);
             CLIENTS[index].place = LEADERS.length;
           }
           updAll();
