@@ -1,8 +1,17 @@
 const getRandId = () => (Math.random() * Date.now()).toString(36);
-
+const express = require('express');var path = require('path');
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8008 });
+const PORT = process.env.PORT || 3000;
+const INDEX = '../frontend/dist/index.html';
+var htmlPath = path.join(__dirname, '../frontend/dist');
+
+const server = express()
+  // .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .use(express.static(htmlPath))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const wss = new WebSocket.Server({ server });
 CLIENTS = [];
 
 const state = {
