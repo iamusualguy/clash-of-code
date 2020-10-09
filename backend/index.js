@@ -60,7 +60,7 @@ const testJSCode = (code) => {
       return ${state.task.functionName}(...[${JSON.stringify(test.args).slice(1, -1)}])`;
       var F = new Function(code2);
       var answer = F();
-      if (JSON.stringify(answer) == JSON.stringify(test.solution)) {
+      if (JSON.stringify(answer) === JSON.stringify(test.solution)) {
         // if (eval(answer).() == eval(test.solution).toString()) {
         return "PASS";
       } else {
@@ -135,7 +135,7 @@ wss.on('connection', function connection(ws) {
         if (index > -1) {
           CLIENTS[index].tests = res;
           CLIENTS[index].passPercentage = (Math.round((res.filter(rr => rr[0] === "P").length / res.length) * 100));
-          if (CLIENTS[index].passPercentage === 100 && LEADERS.some(ldld => ldld.id === CLIENTS[index].id)) {
+          if (CLIENTS[index].passPercentage === 100 && !LEADERS.some(ldld => ldld.id === CLIENTS[index].id)) {
             LEADERS.push(CLIENTS[index].id);
             CLIENTS[index].place = LEADERS.length;
           }
