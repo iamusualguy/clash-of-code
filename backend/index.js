@@ -16,41 +16,41 @@ CLIENTS = [];
 
 LEADERS = [];
 
-const state = {
-  task: {
-    title: "A+B",
-    description: `solve A+B`,
-    input: "a = 1, b = 2",
-    output: "3",
-    functionName: "add",
-    tests: [
-      { args: [1, 2], solution: 3 },
-      { args: [2, 4], solution: 6 },
-      { args: [-1, 2], solution: 1 },
-      { args: [2, 4], solution: 6 },
-    ],
-  },
-  isGameStarted: false,
-  time: 5 * 60 * 1000,
-}
-
 // const state = {
 //   task: {
-//     title: "Running Sum of 1d Array",
-//     description: `Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
-//     Return the running sum of nums.`,
-//     input: "nums = [1,2,3,4]",
-//     output: "[1,3,6,10]",
-//     functionName: "runningSum",
+//     title: "A+B",
+//     description: `solve A+B`,
+//     input: "a = 1, b = 2",
+//     output: "3",
+//     functionName: "add",
 //     tests: [
-//       { args: [[1,2,3,4]], solution: [1,3,6,10] },
-//       { args: [[1,1,1,1,1]], solution: [1,2,3,4,5] },
-//       { args: [[3,1,2,10,1]], solution: [3,4,6,16,17] },
+//       { args: [1, 2], solution: 3 },
+//       { args: [2, 4], solution: 6 },
+//       { args: [-1, 2], solution: 1 },
+//       { args: [2, 4], solution: 6 },
 //     ],
 //   },
 //   isGameStarted: false,
 //   time: 5 * 60 * 1000,
 // }
+
+const state = {
+  task: {
+    title: "Running Sum of 1d Array",
+    description: `Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+    Return the running sum of nums.`,
+    input: "nums = [1,2,3,4]",
+    output: "[1,3,6,10]",
+    functionName: "runningSum",
+    tests: [
+      { args: [[1,2,3,4]], solution: [1,3,6,10] },
+      { args: [[1,1,1,1,1]], solution: [1,2,3,4,5] },
+      { args: [[3,1,2,10,1]], solution: [3,4,6,16,17] },
+    ],
+  },
+  isGameStarted: false,
+  time: 50 * 60 * 1000,
+}
 
 const testJSCode = (code) => {
   return state.task.tests.map((test) => {
@@ -166,7 +166,7 @@ wss.on('connection', function connection(ws) {
       }
       case "stopGame": {
         state.isGameStarted = false;
-        state.time = 10 * 60 * 1000,
+        state.time = 50 * 60 * 1000,
         LEADERS = [];
         CLIENTS.map(clcl => { clcl.place = 0; clcl.passPercentage = 0 });
         updAll();
