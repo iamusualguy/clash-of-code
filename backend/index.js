@@ -2,7 +2,7 @@ const getRandId = () => (Math.random() * Date.now()).toString(36);
 
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 1234 });
+const wss = new WebSocket.Server({ port: 8008 });
 CLIENTS = [];
 
 const state = {
