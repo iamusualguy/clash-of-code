@@ -167,7 +167,7 @@ wss.on('connection', function connection(ws) {
       case "stopGame": {
         state.isGameStarted = false;
         state.time = 10 * 60 * 1000,
-       
+        LEADERS = [];
         CLIENTS.map(clcl => { clcl.place = 0; clcl.passPercentage = 0 });
         updAll();
         clearInterval(gameInterval);
