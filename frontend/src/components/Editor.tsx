@@ -43,7 +43,7 @@ export const Editor: React.FC<EditorProps> = observer((props) => {
             // registerRulesForLanguage('scala', new ScalaHighlightRules());
 
             editor = monaco.editor.create(divEl.current, {
-                value: ['function add() {', '    return 2;', '}'].join('\n'),
+                value: ['function add() {', '    return;', '}'].join('\n'),
                 language: 'javascript',
                 minimap: { enabled: false },
                 renderWhitespace: 'all',
