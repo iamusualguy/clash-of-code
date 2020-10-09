@@ -47,7 +47,7 @@ export class GameState {
         );
 
         reaction(
-            () => this.serverState.task.functionName,
+            () => this.serverState && this.serverState.task.functionName,
             (functionName) => {
                 if (this.code === "") {
                     this.code = `function ${functionName}() { }`;
