@@ -12,7 +12,7 @@ export class AdminPanel extends React.Component<AdminPanelProps, {}> {
     public render() {
         const { startGame, stopGame, setTask, serverState } = this.props.state
         return <>
-            <div > {serverState.clients && serverState.clients.map(c => `${c.id}:  ${c.pass}%`).join(", ")} </div>
+            {/* <div > {serverState.clients && serverState.clients.map(c => `${c.name}:  ${c.pass}%`).join(", ")} </div> */}
 
             <hr />
             <textarea

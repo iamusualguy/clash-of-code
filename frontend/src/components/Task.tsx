@@ -13,26 +13,30 @@ export class Task extends React.Component<TaskProps, {}> {
     public render() {
         const { title, description, functionName, timeReadable, testRes, admin, runTests, submit, serverState } = this.props.state
         return <>
-            <div className="container">
-                {
-                    serverState && (serverState.isGameStarted || admin) &&
-                    <>
-                        <div className="badge badge-primary text-wrap" style={{ width: "6rem" }}>
-                            {timeReadable}
-                        </div>
-                        <h1> {title}</h1>
-                        <div> {description}</div>
-                        <hr />
-                        <pre><code>
-                            function {functionName}() {"{"} {`\n    `}
+            <div className="container" style={{ width: " 40vw", marginLeft: "9vw" }}>
+                <div className="badge badge-primary text-wrap" style={{ width: "6rem" }}>
+                    {timeReadable}
+                </div>
+                <h1> {title}</h1>
+                <div> {description}</div>
+                <hr />
+                <pre><code>
+                    function {functionName}() {"{"} {`\n    `}
                                 return;
                                 {`\n`}
-                            {"}"}
-                        </code></pre>
-                        <hr />
-
-                        {/* <div> {timeReadable}</div> */}
-                        <ul className="list-group" style={{ width: " 20em" }}>
+                    {"}"}
+                </code></pre>
+                <div className="card">
+                    <div className="card-body">
+                        Input: <code>{serverState && serverState.task.input}</code>
+                        <br />
+    Output: <code>{serverState && serverState.task.output}</code>
+                    </div>
+                </div>
+                <hr />
+                {serverState && (serverState.isGameStarted || admin) &&
+                    <>
+                        <ul className="list-group" >
                             {testRes.map(test => {
                                 if (test[0] === "P") {
                                     return <li className="list-group-item list-group-item-success">{test}</li>;
@@ -42,15 +46,31 @@ export class Task extends React.Component<TaskProps, {}> {
                             })}
                         </ul>
                         <hr />
-
-
-                        <div className="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" className="btn btn-primary" onClick={() => { submit() }}> submit </button>
-                            <button type="button" className="btn btn-secondary" onClick={() => { runTests() }}> runTests </button>
-                        </div>
-                        <hr />
                     </>
                 }
+                <ul className="list-group">
+                    {serverState && serverState.clients.map(cl => {
+                        return (<li className="list-group-item d-flex justify-content-between align-items-center">
+                            <span className="badge badge-success badge-pill">{cl.place || ""}</span>
+                            @ {cl.name}
+                            
+                            <span className="badge badge-primary badge-pill">{cl.pass}%</span>
+                        </li>)
+                    })}
+                </ul>
+                <br />
+                <div className="input-group flex-nowrap">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">@</span>
+                    </div>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Username"
+                        onChange={(event) => { this.props.state.name = event.target.value; this.props.state.setName(); }}
+                    />
+
+                </div>
                 {admin && <AdminPanel state={this.props.state} />}
             </div>
             <Editor state={this.props.state} />

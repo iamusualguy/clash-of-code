@@ -4,6 +4,8 @@ export interface Task {
     title: string;
     description: string;
     functionName: string;
+    input: string,
+    output: string,
 }
 
 export interface ServerState {
@@ -17,6 +19,9 @@ export class GameState {
 
     @observable
     public serverState: ServerState;
+
+    @observable
+    public name: string;
 
     @observable
     public code = "";
@@ -93,7 +98,9 @@ export class GameState {
 
     @action.bound
     public runTests() {
-        this.ws.send(JSON.stringify({ type: "test", code: this.code }))
+        if (this.serverState.isGameStarted) {
+            this.ws.send(JSON.stringify({ type: "test", code: this.code }))
+        }
     }
 
     @action.bound
@@ -118,5 +125,10 @@ export class GameState {
     public setTask() {
         this.ws.send(JSON.stringify({ type: "setTask", task: this.taskBuffer }))
     }
-    
+
+    @action.bound
+    public setName() {
+        this.ws.send(JSON.stringify({ type: "setName", name: this.name }))
+    }
+
 }
